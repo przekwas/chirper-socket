@@ -7,5 +7,8 @@ export default {
             password: 'chirpz',
             database: 'chirpz'
         }
+    },
+    auth: {
+        secret: 'foxmccloud'
     }
 };

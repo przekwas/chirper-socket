@@ -12,8 +12,8 @@ const CharCounter: React.SFC<CharCounterProps> = ({ info: { isOver, charLeft, MA
     return (
         <>
             {isOver ?
-                <small className="form-text text-danger text-right" > {charLeft} / {MAX_CHARS}</small > :
-                <small className="form-text text-muted text-right">{charLeft} / {MAX_CHARS}</small>
+                <small className="form-text text-danger" > {charLeft} / {MAX_CHARS}</small > :
+                <small className="form-text text-muted">{charLeft} / {MAX_CHARS}</small>
             }
         </>
     );

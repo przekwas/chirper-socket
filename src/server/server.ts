@@ -6,13 +6,17 @@ import * as helmet from 'helmet';
 import * as compression from 'compression';
 import * as http from 'http';
 import * as SocketIO from 'socket.io';
+import * as passport from 'passport';
 import routes from './routes';
+import './middleware/bearerstrategy';
+import './middleware/localstrategy';
 
 const app = express();
 const server = new http.Server(app);
 export const io = SocketIO(server);
 
 app.use(cors());
+app.use(passport.initialize());
 app.use(helmet());
 app.use(compression());
 app.use(express.json());
