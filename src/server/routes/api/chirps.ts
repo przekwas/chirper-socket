@@ -1,6 +1,15 @@
 import { Router } from 'express';
 import { io } from '../../server';
 import knex from '../../db';
+import { RequestHandler } from 'express-serve-static-core';
+
+const isAdmin: RequestHandler = (req, res, next) => {
+    if (!req.user || req.user.role !== 'guest') {
+        return res.sendStatus(401);
+    } else {
+        return next();
+    }
+};
 
 const router = Router();
 
@@ -20,7 +29,7 @@ router.get('/:id?', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', isAdmin, async (req, res) => {
     try {
         let newId = await knex('chirps').insert(req.body);
         io.emit('newChirp');

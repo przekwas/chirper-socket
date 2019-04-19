@@ -1,10 +1,12 @@
 import * as React from 'react';
 
-export interface CardHeaderProps { }
+export interface CardHeaderProps { 
+    className?: string;
+}
 
-const CardHeader: React.SFC<CardHeaderProps> = ({ children }) => {
+const CardHeader: React.SFC<CardHeaderProps> = ({ children, className = '' }) => {
     return (
-        <div className="card-header bg-light">
+        <div className={`card-header bg-light ${className}`}>
             {children}
         </div>
     );
