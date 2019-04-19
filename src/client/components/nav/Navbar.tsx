@@ -11,7 +11,7 @@ const Navbar: React.SFC<NavbarProps> = () => {
             </button>
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div className="navbar-nav ml-auto">
-                    <a className="nav-item nav-link active" href="#">Home</a>
+                    <a className="nav-item nav-link active" href="#">Chirps</a>
                 </div>
             </div>
         </nav>

@@ -8,9 +8,9 @@ import * as http from 'http';
 import * as SocketIO from 'socket.io';
 import routes from './routes';
 
-let app = express();
-let server = new http.Server(app);
-let io = SocketIO(server);
+const app = express();
+const server = new http.Server(app);
+export const io = SocketIO(server);
 
 app.use(cors());
 app.use(helmet());
@@ -20,8 +20,8 @@ app.use(express.static('public'));
 app.use(morgan('dev'));
 
 io.on('connection', socket => {
-    console.log(`User\x1b[34m ${socket.id}\x1b[0m has \x1b[32mconnected!`);
-    socket.on('disconnect', () => console.log(`User\x1b[34m ${socket.id}\x1b[0m has \x1b[31mdisconnected!`));
+    console.log(`User\x1b[34m ${socket.id}\x1b[0m has \x1b[32mconnected!\x1b[0m`);
+    socket.on('disconnect', () => console.log(`User\x1b[34m ${socket.id}\x1b[0m has \x1b[31mdisconnected!\x1b[0m`));
 });
 
 app.use(routes);
