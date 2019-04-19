@@ -35,10 +35,10 @@ const Form: React.SFC<FormProps> = ({ handlers, values }) => {
         <CharCounter info={{ isOver: false, charLeft, MAX_CHARS }} />;
 
     return (
-        <form className="form-group bg-light text-dark border border-dark rounded shadow p-3">
+        <form className="form-group bg-white border border-dark rounded shadow p-3">
             <textarea
                 placeholder="Chirp Message ..."
-                className="form-control shadow-sm p-2"
+                className="form-control border border-primary rounded shadow-sm p-2"
                 rows={4}
                 value={values.chirp}
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleTextareaChange(e)}
@@ -46,7 +46,7 @@ const Form: React.SFC<FormProps> = ({ handlers, values }) => {
             {charDisplay}
             <div className="text-center">
                 <button
-                    className="btn btn-primary w-50 shadow mt-3"
+                    className="btn btn-secondary w-50 shadow mt-3"
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) => handlers.handleSubmit(e)}>
                     Chirp It!
                 </button>
