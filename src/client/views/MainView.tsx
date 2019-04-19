@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import * as io from 'socket.io-client';
 import * as formService from '../utils/formService';
+import { json } from '../utils/api';
 import {
     FormRow,
     Form,
@@ -17,33 +19,25 @@ export interface Chirp {
 
 export interface MainViewProps { }
 
-const TEST_DATA = [
-    {
-        id: 1,
-        authorid: 1,
-        content: "Test One",
-        _created: new Date()
-    },
-    {
-        id: 2,
-        authorid: 1,
-        content: "Test Two",
-        _created: new Date()
-    },
-    {
-        id: 3,
-        authorid: 1,
-        content: "Test Three",
-        _created: new Date()
-    },
-]
-
 const MainView: React.SFC<MainViewProps> = props => {
 
     const [chirp, setChirp] = useState<string>('');
     const [chirps, setChirps] = useState<Array<Chirp>>([]);
+    const getChirps = async () => {
+        try {
+            let chirps = await json('/api/chirps');
+            setChirps(chirps);
+        } catch (error) {
+            console.log(error);
+        }
+    };
     useEffect(() => {
-        setChirps(TEST_DATA);
+        getChirps();
+    }, []);
+
+    useEffect(() => {
+        let socket = io.connect();
+        socket.on('TEST', test => console.log(test));
     }, []);
 
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {

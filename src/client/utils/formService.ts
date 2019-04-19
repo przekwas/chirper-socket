@@ -1,4 +1,5 @@
 import { Chirp } from '../views/MainView';
+import { json } from '../utils/api';
 
 export const handleTextareaChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
@@ -16,7 +17,7 @@ export const handleTextareaChange = (
     }
 };
 
-export const submitChirpForm = (
+export const submitChirpForm = async (
     e: React.MouseEvent<HTMLButtonElement>,
     setChirp: any,
     chirp: string,
@@ -24,11 +25,13 @@ export const submitChirpForm = (
     chirps: Array<Chirp>
 ) => {
     e.preventDefault();
-    setChirps([{
-        id: 4,
-        authorid: 1,
-        content: chirp,
-        _created: new Date()
-    }, ...chirps])
+    try {
+        await json('/api/chirps', 'POST', {
+            authorid: 1,
+            content: chirp,
+        });
+    } catch (error) {
+        console.log(error);
+    }
     setChirp('');
 };
