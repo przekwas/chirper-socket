@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-
+import * as formService from '../utils/formService';
 import {
     FormRow,
     Form,
@@ -8,13 +8,14 @@ import {
     ChirpCard
 } from '../components/main';
 
-export interface MainViewProps { }
 export interface Chirp {
     id: number,
     authorid: number,
     content: string,
     _created: Date
 }
+
+export interface MainViewProps { }
 
 const TEST_DATA = [
     {
@@ -46,14 +47,13 @@ const MainView: React.SFC<MainViewProps> = props => {
     }, []);
 
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        setChirps([{
-            id: 4,
-            authorid: 1,
-            content: chirp,
-            _created: new Date()
-        }, ...chirps])
-        setChirp('');
+        formService.submitChirpForm(
+            e,
+            setChirp,
+            chirp,
+            setChirps,
+            chirps
+        );
     }
 
     return (

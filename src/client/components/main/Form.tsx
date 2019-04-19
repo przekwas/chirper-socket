@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { useState } from 'react';
+import * as formService from '../../utils/formService';
+import CharCounter from './CharCounter';
 
 export interface FormProps {
     handlers: {
@@ -11,21 +14,43 @@ export interface FormProps {
 }
 
 const Form: React.SFC<FormProps> = ({ handlers, values }) => {
+
+    const MAX_CHARS = 255;
+
+    const [charLeft, setCharLeft] = useState<number>(0);
+    const [charMax, setCharMax] = useState<boolean>(false);
+
+    const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        formService.handleTextareaChange(
+            e,
+            MAX_CHARS,
+            handlers.setChirp,
+            setCharLeft,
+            setCharMax
+        );
+    };
+
+    let charDisplay = charMax ?
+        <CharCounter info={{ isOver: true, charLeft, MAX_CHARS }} /> :
+        <CharCounter info={{ isOver: false, charLeft, MAX_CHARS }} />;
+
     return (
         <form className="form-group bg-light text-dark border border-dark rounded shadow p-3">
-            <label>Chirp</label>
-            <input
-                type="text"
+            <textarea
                 placeholder="Chirp Message ..."
-                className="form-control shadow-sm p-1"
+                className="form-control shadow-sm p-2"
+                rows={4}
                 value={values.chirp}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handlers.setChirp(e.currentTarget.value)}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleTextareaChange(e)}
             />
-            <button
-                className="btn btn-primary shadow mt-3"
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => handlers.handleSubmit(e)}>
-                Chirp It!
-            </button>
+            {charDisplay}
+            <div className="text-center">
+                <button
+                    className="btn btn-primary w-50 shadow mt-3"
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => handlers.handleSubmit(e)}>
+                    Chirp It!
+                </button>
+            </div>
         </form>
     );
 }
