@@ -31,13 +31,17 @@ const MainView: React.SFC<MainViewProps> = props => {
             console.log(error);
         }
     };
+
     useEffect(() => {
         getChirps();
     }, []);
 
     useEffect(() => {
         let socket = io.connect();
-        socket.on('TEST', test => console.log(test));
+        socket.on('newChirp', () => getChirps());
+        return () => {
+            socket.disconnect();
+        }
     }, []);
 
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
