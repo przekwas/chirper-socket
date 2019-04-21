@@ -24,13 +24,7 @@ const Form: React.SFC<FormProps> = ({ handlers, values }) => {
     const [charMax, setCharMax] = useState<boolean>(false);
 
     const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        formService.handleTextareaChange(
-            e,
-            MAX_CHARS,
-            handlers.setChirp,
-            setCharLeft,
-            setCharMax
-        );
+        formService.handleTextareaChange(e, MAX_CHARS, handlers.setChirp, setCharLeft, setCharMax);
     };
 
     let charDisplay = charMax ?
