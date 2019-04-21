@@ -10,7 +10,7 @@ router.post('/', passport.authenticate('local'), async (req, res, next) => {
         res.json({
             token,
             role: req.user.role,
-            userid: req.user.id
+            userid: req.user.id,
         });
     } catch (error) {
         console.log(error);

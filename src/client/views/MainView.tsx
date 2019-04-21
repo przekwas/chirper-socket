@@ -46,13 +46,7 @@ const MainView: React.SFC<MainViewProps> = props => {
     }, []);
 
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-        formService.submitChirpForm(
-            e,
-            setChirp,
-            chirp,
-            setChirps,
-            chirps
-        );
+        formService.submitChirpForm(e, setChirp, chirp);
     }
 
     return (

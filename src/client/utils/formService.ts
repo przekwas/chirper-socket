@@ -1,13 +1,6 @@
-import { Chirp } from '../views/MainView';
-import { json } from '../utils/api';
+import { json, SetAccessToken, User } from '../utils/api';
 
-export const handleTextareaChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>,
-    MAX_CHARS: number,
-    setChirp: any,
-    setCharLeft: any,
-    setCharMax: any
-) => {
+export const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>, MAX_CHARS: number, setChirp: any, setCharLeft: any, setCharMax: any) => {
     setChirp(e.currentTarget.value);
     setCharLeft(e.currentTarget.value.length);
     if (e.currentTarget.value.length > MAX_CHARS) {
@@ -17,17 +10,11 @@ export const handleTextareaChange = (
     }
 };
 
-export const submitChirpForm = async (
-    e: React.MouseEvent<HTMLButtonElement>,
-    setChirp: any,
-    chirp: string,
-    setChirps: any,
-    chirps: Array<Chirp>
-) => {
+export const submitChirpForm = async (e: React.MouseEvent<HTMLButtonElement>, setChirp: any, chirp: string) => {
     e.preventDefault();
     try {
         await json('/api/chirps', 'POST', {
-            authorid: 1,
+            userid: User.userid,
             content: chirp,
         });
     } catch (error) {
@@ -36,6 +23,27 @@ export const submitChirpForm = async (
     setChirp('');
 };
 
-export const registerOrLoginSubmit = async () => {
-    
+export const registerOrLoginSubmit = async (e: React.MouseEvent<HTMLButtonElement>, toggle: boolean, username: string, password: string, email?: string) => {
+    e.preventDefault();
+    let path, body;
+    if (toggle) {
+        path = '/auth/register';
+        body = {
+            username,
+            password,
+            email
+        };
+    } else {
+        path = '/auth/login';
+        body = {
+            email,
+            password,
+        };
+    }
+    try {
+        let payload = await json(path, 'POST', body);
+        SetAccessToken(payload.token, { userid: payload.userid, role: payload.role });
+    } catch (error) {
+        console.log(error);
+    }
 };
