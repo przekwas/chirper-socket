@@ -12,12 +12,12 @@ export interface ChirpCardProps {
     chirp: Chirp
 }
 
-const ChirpCard: React.SFC<ChirpCardProps> = ({ chirp: { authorid, content, _created } }) => {
+const ChirpCard: React.SFC<ChirpCardProps> = ({ chirp: { username, content, _created } }) => {
     return (
         <div className="col-md-6 offset-md-3">
             <Card>
                 <CardHeader>
-                    <b>{authorid}</b> said:
+                    <b>{username}</b> said:
                 </CardHeader>
                 <CardBody>
                     <p className="card-text">{content}</p>

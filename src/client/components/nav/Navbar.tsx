@@ -1,14 +1,10 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import { FaKiwiBird } from 'react-icons/fa';
-import LinkToggle from './LinkToggle';
 
 export interface NavbarProps { }
 
 const Navbar: React.SFC<NavbarProps> = () => {
-
-    const [chirpActive, setChirpActive] = useState<boolean>(true);
-    const [registerActive, setRegisterActive] = useState<boolean>(false);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
@@ -18,16 +14,8 @@ const Navbar: React.SFC<NavbarProps> = () => {
             </button>
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div className="navbar-nav ml-auto">
-                    <LinkToggle
-                        onClick={() => { setChirpActive(!chirpActive); setRegisterActive(!registerActive) }}
-                        active={chirpActive}
-                        text="Chirps"
-                        to="/" />
-                    <LinkToggle
-                        onClick={() => { setChirpActive(!chirpActive); setRegisterActive(!registerActive) }}
-                        active={registerActive}
-                        text="Register/Login"
-                        to="/register" />
+                    <NavLink to="/" className="nav-item nav-link" exact activeClassName="nav-item nav-link active">Chirps</NavLink>
+                    <NavLink to="/magic" className="nav-item nav-link" exact activeClassName="nav-item nav-link active">Register/Login</NavLink>
                 </div>
             </div>
         </nav>

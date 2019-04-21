@@ -17,10 +17,18 @@ router.get('/:id?', async (req, res) => {
     let id = req.params.id;
     try {
         if (id) {
-            let [chirp] = await knex('chirps').select().where('id', id);
+            let [chirp] = await
+                knex('chirps')
+                    .select('chirps.*', 'users.username')
+                    .join('users', 'chirps.userid', '=', 'users.id')
+                    .where('chirps.id', id);
             res.json(chirp);
         } else {
-            let chirps = await knex('chirps').select().orderBy('_created', 'desc');
+            let chirps = await
+                knex('chirps')
+                    .select('chirps.*', 'users.username')
+                    .join('users', 'chirps.userid', '=', 'users.id')
+                    .orderBy('chirps._created', 'desc');
             res.json(chirps);
         }
     } catch (error) {

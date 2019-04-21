@@ -11,7 +11,7 @@ const MagicInputGroup: React.SFC<MagicInputGroupProps> = ({
     placeholder
 }) => {
     return (
-        <div className="input-group mb-3">
+        <div className="input-group my-3">
             <div className="input-group-prepend">
                 <span className="input-group-text bg-warning">
                     {children}
