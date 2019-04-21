@@ -35,3 +35,7 @@ export const submitChirpForm = async (
     }
     setChirp('');
 };
+
+export const registerOrLoginSubmit = async () => {
+    
+};

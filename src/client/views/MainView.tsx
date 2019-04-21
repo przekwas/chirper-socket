@@ -12,7 +12,8 @@ import {
 
 export interface Chirp {
     id: number,
-    authorid: number,
+    userid: number,
+    username: string,
     content: string,
     _created: Date
 }
