@@ -31,7 +31,7 @@ const Form: React.SFC<FormProps> = ({ handlers, values }) => {
         <CharCounter info={{ isOver: true, charLeft, MAX_CHARS }} /> :
         <CharCounter info={{ isOver: false, charLeft, MAX_CHARS }} />;
 
-    let registerDisplay = User ?
+    let registerDisplay = !User ?
         <Link to="/magic"><small className="form-text text-muted">Not logged in or registered?  Click.</small></Link> :
         <small className="form-text border border-primary rounded shadow-sm bg-warning text-dark px-1">If you can dream it, you can chirp it.</small>
 

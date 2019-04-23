@@ -13,7 +13,7 @@ import {
 
 export interface MagicViewProps extends RouteComponentProps { }
 
-const MagicView: React.SFC<MagicViewProps> = props => {
+const MagicView: React.SFC<MagicViewProps> = ({ history }) => {
 
     const [email, setEmail] = useState<string>('testing@testing.com');
     const [password, setPassword] = useState<string>('password123');
@@ -21,8 +21,9 @@ const MagicView: React.SFC<MagicViewProps> = props => {
     const [toggle, setToggle] = useState<boolean>(false);
     const inputAnimated: any = useSpring({ opacity: toggle ? 1 : 0 });
 
-    const handleButtonSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleButtonSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         formService.registerOrLoginSubmit(e, toggle, username, password, email);
+        history.push('/');
     };
 
     return (
