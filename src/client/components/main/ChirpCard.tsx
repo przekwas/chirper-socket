@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as moment from 'moment';
+import { useSpring, animated } from 'react-spring';
 import { Chirp } from '../../views/MainView';
 import {
     Card,
@@ -13,19 +14,24 @@ export interface ChirpCardProps {
 }
 
 const ChirpCard: React.SFC<ChirpCardProps> = ({ chirp: { username, content, _created } }) => {
+
+    const CardAnimated: any = useSpring({ to: { opacity: 1, left: '0' }, from: { opacity: 0, left: '5em' } });
+
     return (
         <div className="col-md-6 offset-md-3">
-            <Card>
-                <CardHeader>
-                    <b>{username}</b> said:
+            <animated.div style={CardAnimated}>
+                <Card>
+                    <CardHeader>
+                        <b>{username}</b> said:
                 </CardHeader>
-                <CardBody>
-                    <p className="card-text">{content}</p>
-                </CardBody>
-                <CardFooter>
-                    <p className="card-text text-muted">{moment(_created).calendar()}</p>
-                </CardFooter>
-            </Card>
+                    <CardBody>
+                        <p className="card-text">{content}</p>
+                    </CardBody>
+                    <CardFooter>
+                        <p className="card-text text-muted">{moment(_created).calendar()}</p>
+                    </CardFooter>
+                </Card>
+            </animated.div>
         </div>
     );
 }
